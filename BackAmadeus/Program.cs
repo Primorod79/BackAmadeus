@@ -20,11 +20,9 @@ if (app.Environment.IsDevelopment())
 }
 
 // Registra los servicios aquí
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
-);
+builder.Services.AddDbContext<AplicationDBContext>(options =>
+    options.UseSqlServer())
 
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 // builder.Services.AddAuthentication(...)
 
