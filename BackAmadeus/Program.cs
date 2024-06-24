@@ -21,12 +21,11 @@ if (app.Environment.IsDevelopment())
 
 // Registra los servicios aquí
 builder.Services.AddDbContext<AplicationDBContext>(options =>
-    options.UseSqlServer())
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+);
 
 
 // builder.Services.AddAuthentication(...)
-
-var app = builder.Build();
 
 // app.UseAuthentication();
 
