@@ -1,0 +1,6 @@
+@BackAmadeus_HostAddress = http://localhost:5028
+
+GET {{BackAmadeus_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
