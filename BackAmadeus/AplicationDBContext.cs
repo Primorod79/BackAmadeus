@@ -5,7 +5,7 @@ namespace BackAmadeus
 {
     public class AplicationDBContext: DbContext 
     {
-        DbSet<Laptop> laptop {  get; set; }
+        public DbSet<Laptop> laptop {  get; set; }
         public AplicationDBContext(DbContextOptions<AplicationDBContext> options ): base( options )
         { 
         }

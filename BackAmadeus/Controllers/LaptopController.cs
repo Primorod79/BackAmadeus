@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BackAmadeus.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,36 +10,90 @@ namespace BackAmadeus.Controllers
     [ApiController]
     public class LaptopController : ControllerBase
     {
-        // GET: api/<LaptopController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
+        
+        private readonly AplicationDBContext _context;
+
+        public LaptopController(AplicationDBContext context) {
+         _context = context;
         }
 
-        // GET api/<LaptopController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET: api/<LaptopController>
+        [HttpGet]
+        public async Task<IActionResult>  Get()
         {
-            return "value";
+            try
+            {
+                var listLaptops = await _context.laptop.ToListAsync();
+                return Ok(listLaptops);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
         }
+
+
+      
 
         // POST api/<LaptopController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody] Laptop laptop)
         {
+            try
+            {
+                _context.Add(laptop);
+                await _context.SaveChangesAsync(); 
+                return Ok(laptop);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // PUT api/<LaptopController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> Put(int id, [FromBody] Laptop laptop)
         {
+            try
+            {
+                if(id !=laptop.id) 
+                    {
+                    return NotFound();
+                }
+                _context.Update(laptop);
+                await _context.SaveChangesAsync();  
+                return Ok(new {message = "The laptop was successfully upgraded!" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // DELETE api/<LaptopController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            try
+            {
+                var laptop = await _context.laptop.FindAsync(id);
+                if(laptop == null)
+                {
+                    return NotFound();
+                }
+                _context.laptop.Remove(laptop);   
+                await _context.SaveChangesAsync();
+                return Ok(new { message = "The laptop was successfully deleted!" });
+            }
+            catch (Exception ex)
+      
+                {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

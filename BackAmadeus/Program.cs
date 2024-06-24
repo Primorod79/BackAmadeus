@@ -10,7 +10,7 @@ builder.Services.AddSwaggerGen();
 
 // Registra los servicios aquí
 builder.Services.AddDbContext<AplicationDBContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DevConnection"))
 );
 
 // builder.Services.AddAuthentication(...)
