@@ -1,3 +1,6 @@
+using BackAmadeus;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -15,6 +18,20 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Registra los servicios aquí
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+);
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+// builder.Services.AddAuthentication(...)
+
+var app = builder.Build();
+
+// app.UseAuthentication();
+
 
 app.UseHttpsRedirection();
 
