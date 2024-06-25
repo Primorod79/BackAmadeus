@@ -17,6 +17,7 @@ namespace BackAmadeus.Migrations
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Brand = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Color = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Reference = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Size = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Storage = table.Column<string>(type: "nvarchar(max)", nullable: false),

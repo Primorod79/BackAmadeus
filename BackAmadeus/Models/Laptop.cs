@@ -11,6 +11,9 @@ namespace BackAmadeus.Models
         public string Brand { get; set; }
 
         [Required]
+        public string Color { get; set; }
+
+        [Required]
         public string Reference { get; set; }
 
         [Required]
